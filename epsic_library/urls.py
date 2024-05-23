@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('<int:pk>',views.book_info, name="info"),
-    path('create/', views.CreateBookView.as_view(), name='create_book')
+    path('create/', views.CreateBookView.as_view(), name='create_book'),  # Added comma here
+    path('search/', views.search, name='search')
 ]
+

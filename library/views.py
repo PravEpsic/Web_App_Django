@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Book
 from django.views import View
 from .forms import BookForm
+from django.db.models import Q
+from django.shortcuts import render
 
 def index(request):
     """View function for home page of site."""
@@ -38,3 +40,12 @@ class CreateBookView(View):
         else:
             # Si le formulaire n'est pas valide, réafficher le formulaire avec les erreurs
             return render(request, 'create_book.html', {'form': form})
+
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        results = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+    else:
+        results = Book.objects.all()
+    return render(request, 'search_results.html', {'results': results})

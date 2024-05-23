@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Résultats de recherche</title>
+</head>
+<body>
+    <h1>Résultats de recherche</h1>
+    <form method="get">
+        <input type="text" name="q" placeholder="Rechercher un livre...">
+        <button type="submit">Rechercher</button>
+    </form>
+    {% if results %}
+        <ul>
+        {% for book in results %}
+            <li><a href="{% url 'info' book.pk %}">{{ book.title }} par {{ book.author }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun livre trouvé.</p>
+    {% endif %}
+</body>
+</html>
